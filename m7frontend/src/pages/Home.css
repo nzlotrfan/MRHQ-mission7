@@ -1,0 +1,132 @@
+/* CONTAINER SECTION */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  /* must use align-items to centre the div horizontally if your flex-direction is set to column*/
+  align-items: center;
+}
+
+/* BANNER SECTION */
+.home-banners-container {
+  display: flex;
+  background-color: #e5e5e5;
+  width: 100%;
+  border-bottom: solid 1px #a10f31;
+}
+
+.home-banner-left {
+  width: 50%;
+  border-right: solid 1px #a10f31;
+}
+.home-banner-right {
+  width: 50%;
+}
+
+/* AWARDS SECTION 1 */
+.home-awards-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: solid 1px #a10f31;
+  width: 100%;
+}
+.home-award {
+  width: 100px;
+  margin: 30px;
+}
+
+/* WHY CHOOSE APM SECTION */
+.home-whychoose-container {
+  display: flex;
+  background-color: #e5e5e5;
+  justify-content: center;
+  border-bottom: solid 1px #a10f31;
+  width: 100%;
+}
+
+.home-whychoose-left {
+  width: 39%;
+}
+
+.home-whychoose-right {
+  width: 61%;
+  padding: 20px 50px;
+  border-left: solid 1px #a10f31;
+}
+
+/* Divider */
+.home-divider-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.home-divider {
+  width: 100px;
+  border-bottom: 3px solid #a10f31;
+}
+
+.home-whychoose-right p {
+  font-size: 15pt;
+  line-height: 1cm;
+}
+
+.home-bridgepic {
+  width: 100%;
+  /* The display block on the img element here removes the whitespace used for text 'descenders' */
+  display: block;
+}
+
+/* AWARDS SECTION 2 */
+.home-moreawards-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: solid 1px #a10f31;
+  width: 100%;
+}
+.home-moreawards {
+  width: 100px;
+  margin: 30px;
+}
+
+/* TESTIMONIALS SECTION */
+.home-testimonials-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: solid 1px #a10f31;
+  width: 100%;
+}
+
+/* Left side */
+.home-testimonials-left {
+  width: 60%;
+  padding: 50px;
+}
+
+.home-testimonials-text {
+  padding-top: 40px;
+  padding-left: 45px;
+}
+.home-testimonials-author {
+  padding-left: 45px;
+  color: #c01f3f;
+  font-weight: 700;
+}
+
+.home-quotenav {
+  padding-left: 50px;
+  cursor: pointer;
+}
+.home-quotebtn {
+  width: 30px;
+}
+
+/* Right side */
+.home-testimonials-right {
+  display: flex;
+  justify-content: flex-start;
+  width: 40%;
+}
+
+.home-testimonialspic {
+  width: 100%;
+}
