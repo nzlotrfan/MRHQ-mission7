@@ -1,5 +1,6 @@
 import logo from "../assets/logo.svg";
 import "./Header.css";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -12,7 +13,9 @@ const Header = () => {
       </div>
       <div className="header-navbar">
         <button className="header-btn header-nav-btn">Property Management</button>
-        <button className="header-btn header-nav-btn">Property Search</button>
+        <NavLink to="/search" className="header-btn header-nav-btn">
+          Property Search
+        </NavLink>
         <button className="header-btn header-nav-btn">Body Corporate</button>
         <button className="header-btn header-nav-btn">Commercial</button>
         <button className="header-btn header-nav-btn">Waiheke Escapes</button>

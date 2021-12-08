@@ -13,8 +13,24 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-banners-container">
-        <div className="home-banner-left">LEFT</div>
+        <div className="home-banner-left"></div>
         <img src={banner} className="home-banner-right" />
+        <div className="home-banner-overlay">
+          <div>
+            <h2>We care about your living quality</h2>
+            <h2>Let us settle you down</h2>
+          </div>
+          <div className="home-banner-rows-container">
+            <div className="home-banner-rows">
+              <p>Rent</p>
+              <p>Short Let</p>
+            </div>
+            <div className="home-banner-rows">
+              <p>Paying online</p>
+              <p>Watch list</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="home-awards-container">
         <img src={award1} className="home-award" />
