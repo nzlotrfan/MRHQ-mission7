@@ -8,6 +8,7 @@ const Search = () => {
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
   const [results, setResults] = useState([]);
+  const [date, setDate] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,6 +16,7 @@ const Search = () => {
       suburb,
       priceFrom,
       priceTo,
+      date,
     };
     console.log(searchData);
 
@@ -49,7 +51,16 @@ const Search = () => {
             RESULTS
             {results.data
               ? results.data.map(function (property, i, arr) {
-                  return <div>{property.addressStreet}</div>;
+                  return (
+                    <div className="search-results-container">
+                      <div className="search-result-pic">
+                        <img width="200px" src={property.image} />
+                      </div>
+                      <div className="search-result-info">
+                        {property.addressStreet}, Date: {property.dateAvailable}
+                      </div>
+                    </div>
+                  );
                 })
               : "nada"}
           </div>
@@ -128,7 +139,9 @@ const Search = () => {
               <input
                 type="date"
                 // value={inputs.availability || ""}
-                // onChange={handleChange}
+                onChange={(e) => {
+                  setDate(new Date(e.target.value).toISOString());
+                }}
                 name="availability"
               ></input>
             </div>
@@ -168,7 +181,7 @@ const Search = () => {
               <p>IMG-left</p>
             </div>
             <div>
-              <input type="submit" value="Submit!" onClick={handleSubmit} name="submit"></input>
+              <input type="submit" value="View" onClick={handleSubmit} name="submit"></input>
             </div>
           </div>
         </div>

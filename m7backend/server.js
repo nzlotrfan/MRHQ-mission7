@@ -35,17 +35,24 @@ app.get("/search", (req, res) => {
   }
 
   // Actual query
-  async function findListingsWithAddressAndMinPrices(client, { suburb = "", priceFrom = 0 } = {}) {
+  async function findListingsWithAddressAndMinPrices(
+    client,
+    { suburb = "", priceFrom, priceTo, date } = {}
+  ) {
     const cursor = client
       .db("reubens-first-db")
       .collection("mission7")
-      .find({ addressSuburb: suburb, price: { $gte: priceFrom } });
+      .find({
+        addressSuburb: suburb,
+        price: { $gte: priceFrom },
+        dateAvailable: { $gte: new Date(date) },
+      });
 
     const results = await cursor.toArray();
     console.log(results);
     res.status(200).send(results);
     results.forEach(function (property, i, arr) {
-      console.log(`Available: ${property.addressStreet}`);
+      console.log(`The query worked! It pulled out: ${property.addressStreet}`);
     });
   }
   // Connect to DB and run query

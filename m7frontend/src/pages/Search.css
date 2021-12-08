@@ -48,7 +48,11 @@
 
 .search-results {
   width: 100%;
-  background-color: blue;
+}
+
+/* SEARCH RESULTS */
+.search-results-container {
+  display: flex;
 }
 
 /* MAIN SEARCH AREA RIGHT SIDE */
