@@ -37,14 +37,14 @@ app.get("/search", (req, res) => {
   // Actual query
   async function findListingsWithAddressAndMinPrices(
     client,
-    { suburb = "", priceFrom, priceTo, date } = {}
+    { suburb, priceFrom, priceTo, date } = {}
   ) {
     const cursor = client
       .db("reubens-first-db")
       .collection("mission7")
       .find({
         addressSuburb: suburb,
-        price: { $gte: priceFrom },
+        price: { $gte: Number(priceFrom), $lte: Number(priceTo) },
         dateAvailable: { $gte: new Date(date) },
       });
 

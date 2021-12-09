@@ -14,6 +14,7 @@ const Search = () => {
   const [date, setDate] = useState("");
   const [sortRerender, setSortRerender] = useState("");
   const [currentSort, setCurrentSort] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchData = {
@@ -29,6 +30,7 @@ const Search = () => {
       .then(function (response) {
         if (response.status === 200) {
           setResults(response.data);
+          setCurrentSort("Default");
           console.log("Received below from backend:");
           console.log(response.data);
         } else {
@@ -45,6 +47,7 @@ const Search = () => {
       console.log(e.target.name);
       if (e.target.name === "Price (low to high)") {
         const lowHighResults = QuickSortLowHigh(results);
+
         setResults(lowHighResults);
         setSortRerender([...sortRerender, "rerendered"]);
       } else if (e.target.name === "Price (high to low)") {
@@ -57,13 +60,11 @@ const Search = () => {
     }
   };
 
-  let current = new Date();
-  current.setDate(current.getDate() - 10);
-  // current.toISOString();
-  const listingDate = new Date("2021-12-05");
-  console.log(listingDate > current ? "NEW!" : "more than 30 days old");
-  console.log(`listingDate: ${listingDate}`);
-  console.log(`current: ${current}`);
+  // If listing was created within last 30 days, then add a "NEW" banner
+  let oneMonthAgoDate = new Date();
+  oneMonthAgoDate.setDate(oneMonthAgoDate.getDate() - 30);
+  oneMonthAgoDate = new Date(oneMonthAgoDate).toISOString();
+
   return (
     <div className="search-container">
       <div className="search-banner-container">
@@ -93,7 +94,6 @@ const Search = () => {
                   </a>
                 </div>
               </div>
-              {/* <div className="search-sort-menu-box">SORTMENU</div> */}
             </div>
           </div>
           <div className="search-results-container">
@@ -103,7 +103,13 @@ const Search = () => {
                     <div key={i} className="search-result-container">
                       <div className="search-result-pic-wrapper">
                         <img className="search-result-pic" width="100%" src={property.image} />
-                        <div className="search-result-pic-ribbon-wrapper">
+                        <div
+                          className={
+                            property.dateListed < oneMonthAgoDate
+                              ? "search-result-pic-ribbon-wrapper hideRibbon"
+                              : "search-result-pic-ribbon-wrapper"
+                          }
+                        >
                           <div className="search-result-pic-ribbon">New</div>
                         </div>
                       </div>
@@ -192,7 +198,7 @@ const Search = () => {
                 type="date"
                 // value={inputs.availability || ""}
                 onChange={(e) => {
-                  setDate(new Date(e.target.value).toISOString());
+                  setDate(e.target.value);
                 }}
                 name="availability"
               ></input>

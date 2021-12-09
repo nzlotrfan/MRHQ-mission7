@@ -50,19 +50,17 @@
 .search-dropbtn h3 {
   color: #a1a2a4;
   align-self: center;
+  font-size: 14pt;
 }
 
-/* DROPDOWN BOX TEST START */
+/* DROPDOWN SORT BOX START */
 /* Style The Dropdown Button */
 .search-dropbtn {
-  /* background-color: #e5e5e5; */
   color: #a1a2a4;
-  /* padding: 16px; */
-  /* font-size: 16px; */
   border: none;
   cursor: pointer;
   font-family: inherit;
-  background-color: blue;
+  background-color: #e5e5e5;
   display: flex;
   align-items: center;
 }
@@ -103,11 +101,7 @@
   display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.search-dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
-/* DROPDOWN BOX TEST END */
+/* DROPDOWN SORT BOX END */
 
 /* USE THE BELOW CODE FOR CREATING MENU POPUPS ON RIGHT SEARCH */
 /* 
@@ -137,8 +131,6 @@
 
 .search-result-pic-wrapper {
   width: 250px;
-  background: white;
-  border-radius: 10px;
   margin-bottom: 30px;
   position: relative;
 }
