@@ -37,15 +37,18 @@ app.get("/search", (req, res) => {
   // Actual query
   async function findListingsWithAddressAndMinPrices(
     client,
-    { suburb, priceFrom, priceTo, date } = {}
+    { suburb, priceFrom, priceTo, date, leaseType } = {}
   ) {
+    // console.log(`here: ${priceFrom}`);
     const cursor = client
       .db("reubens-first-db")
       .collection("mission7")
       .find({
+        // $or: [{ addressSuburb: "Mount Roskill" }, { addressSuburb: "Mount Eden" }], // This works, but need to figure how to get frontend to send it
         addressSuburb: suburb,
         price: { $gte: Number(priceFrom), $lte: Number(priceTo) },
         dateAvailable: { $gte: new Date(date) },
+        leaseType: leaseType,
       });
 
     const results = await cursor.toArray();

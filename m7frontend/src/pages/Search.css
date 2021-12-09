@@ -32,7 +32,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  background-color: #e5e5e5;
+  background-color: #f0f0f0;
   border: solid 1px #c01f3f;
   border-radius: 5px;
   margin: 5px 0;
@@ -60,7 +60,6 @@
   border: none;
   cursor: pointer;
   font-family: inherit;
-  background-color: #e5e5e5;
   display: flex;
   align-items: center;
 }
@@ -130,8 +129,8 @@
 }
 
 .search-result-pic-wrapper {
-  width: 250px;
-  margin-bottom: 30px;
+  width: 350px;
+  margin-bottom: 50px;
   position: relative;
 }
 .search-result-pic {
@@ -174,8 +173,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e5e5e5;
+  background-color: #f0f0f0;
   width: 30%;
+  border-bottom: solid 9px #c01f3f;
+  height: fit-content;
 }
 
 .search-title-section {
@@ -187,6 +188,79 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 40px;
   align-items: center;
+}
+
+.search-price-field {
+  width: 75px;
+  border: solid 2px #fff;
+}
+
+.search-text-field {
+  width: 150px;
+  border: solid 2px #fff;
+}
+
+.search-form-submit {
+  display: flex;
+}
+
+.search-sub-btn {
+  padding: 10px;
+  width: 130px;
+  background-color: #bf163d;
+  border: solid 1px #bf163d;
+  color: white;
+  font-family: inherit;
+  border-radius: 5px;
+  font-size: 12pt;
+  cursor: pointer;
+  margin: 30px;
+}
+
+.search-sub-btn:hover {
+  background-color: #da2d55;
+}
+
+.search-result-title {
+  font-weight: 700;
+  text-align: center;
+  padding-right: 50px;
+  margin-bottom: 0px;
+}
+.search-result-info {
+  padding: 0 20px;
+  width: 100%;
+}
+
+.search-result-propertyType {
+  color: #c01f3f;
+  padding-right: 50px;
+  text-align: center;
+  font-size: 10pt;
+  margin-top: 3px;
+}
+
+.search-refinements-container {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.icons {
+  margin: 0;
+}
+
+.search-price {
+  align-self: flex-end;
+  color: #c01f3f;
+  font-size: 15pt;
+  font-weight: 700;
+}
+
+.datecolour {
+  color: #c01f3f;
 }

@@ -1,5 +1,8 @@
 import banner from "../assets/Search/banner.png";
 import downarrow from "../assets/Search/downcheveron-btn.png";
+import availability from "../assets/Search/availability.png";
+import bathrooms from "../assets/Search/bathrooms.png";
+import beds from "../assets/Search/beds.png";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Search.css";
@@ -8,12 +11,23 @@ import QuickSortHighLow from "../functions/QuickSortHighLow";
 
 const Search = () => {
   const [suburb, setSuburb] = useState("");
-  const [priceFrom, setPriceFrom] = useState("");
-  const [priceTo, setPriceTo] = useState("");
+  const [priceFrom, setPriceFrom] = useState(0);
+  const [priceTo, setPriceTo] = useState(2000);
+  const [leaseType, setLeaseType] = useState("rent");
   const [results, setResults] = useState();
   const [date, setDate] = useState("");
   const [sortRerender, setSortRerender] = useState("");
   const [currentSort, setCurrentSort] = useState("");
+
+  // const handleSuburb = (e) => {
+
+  //   const newArr = {
+  //     addressSuburb: Array.from(e.target.selectedOptions, (item) => item.value),
+  //   };
+  //   const newNewArr = Object.values(newArr);
+  //   // TRYING TO ACHIEVE:
+  //   // [{ addressSuburb: "Mount Roskill" }, { addressSuburb: "Mount Eden" }],
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +36,7 @@ const Search = () => {
       priceFrom,
       priceTo,
       date,
+      leaseType,
     };
     console.log(searchData);
     axios
@@ -62,6 +77,7 @@ const Search = () => {
 
   // If listing was created within last 30 days, then add a "NEW" banner
   let oneMonthAgoDate = new Date();
+  let todaysDate = oneMonthAgoDate.toISOString();
   oneMonthAgoDate.setDate(oneMonthAgoDate.getDate() - 30);
   oneMonthAgoDate = new Date(oneMonthAgoDate).toISOString();
 
@@ -74,7 +90,7 @@ const Search = () => {
         <div className="search-mainleft">
           <div className="search-sortbar">
             <h2>
-              {results ? `${results.length} ` : "x"}
+              {results ? `${results.length} ` : "Search for a "}
               {results?.length > 1 ? "Properties" : "Property"}
             </h2>
 
@@ -114,13 +130,44 @@ const Search = () => {
                         </div>
                       </div>
                       <div className="search-result-info">
-                        {property.addressStreet}, Date: {property.dateAvailable.slice(0, 10)}, $
-                        {property.price}
+                        <p className="search-result-title">
+                          {property.addressStreet}, {property.addressSuburb}
+                        </p>
+                        <p className="search-result-propertyType">
+                          {property.propertyType.toUpperCase()}
+                        </p>
+                        <div className="search-refinements-container">
+                          <div className="search-bedrooms">
+                            <img className="icons" src={beds} height="25px"></img>
+                            <p className="icons">Bedrooms</p>
+                            <p className="icons">{property.bedrooms}</p>
+                          </div>
+                          <div className="search-bathrooms">
+                            <img className="icons" src={bathrooms} height="25px"></img>
+                            <p className="icons">Bathrooms</p>
+                            <p className="icons">{property.bathrooms}</p>
+                          </div>
+                          <div className="search-availability">
+                            <img className="icons" src={availability} height="25px"></img>
+                            <p className="icons">Availability</p>
+                            <p className="icons datecolour">
+                              {property.dateAvailable <= todaysDate
+                                ? new Date(property.dateAvailable)
+                                    .toString()
+                                    .slice(4, 10)
+                                    .split(" ")
+                                    .reverse()
+                                    .join(" ")
+                                : "Now"}
+                            </p>
+                          </div>
+                          <div className="search-price">${property.price} per week</div>
+                        </div>
                       </div>
                     </div>
                   );
                 })
-              : "nada"}
+              : "Make a new search -->"}
           </div>
         </div>
         <div className="search-mainright">
@@ -130,11 +177,26 @@ const Search = () => {
 
           <div className="search-form-row">
             <div className="search-title-section">
-              <input type="radio" value="rent" name="search-type"></input>
+              <input
+                type="radio"
+                onChange={() => {
+                  setLeaseType("rent");
+                }}
+                defaultChecked="true"
+                value="rent"
+                name="leaseType"
+              ></input>
               <h2>Rent</h2>
             </div>
             <div className="search-title-section">
-              <input type="radio" value="short" name="search-type"></input>
+              <input
+                type="radio"
+                onChange={() => {
+                  setLeaseType("short");
+                }}
+                value="short"
+                name="leaseType"
+              ></input>
               <h2>Short Let</h2>
             </div>
           </div>
@@ -145,6 +207,7 @@ const Search = () => {
             <div>
               <input
                 type="textbox"
+                className="search-text-field"
                 value={suburb}
                 onChange={(e) => {
                   setSuburb(e.target.value);
@@ -160,6 +223,7 @@ const Search = () => {
             <div>
               <input
                 type="textbox"
+                className="search-price-field"
                 // value={inputs.price || ""}
                 onChange={(e) => {
                   setPriceFrom(e.target.value);
@@ -168,6 +232,7 @@ const Search = () => {
               ></input>
               <input
                 type="textbox"
+                className="search-price-field"
                 // value={inputs.price || ""}
                 onChange={(e) => {
                   setPriceTo(e.target.value);
@@ -178,10 +243,10 @@ const Search = () => {
           </div>
           <div className="search-form-row">
             <div>
-              <p>Beds- not configured yet and below</p>
+              <p>Beds</p>
             </div>
             <div>
-              <select>
+              <select className="search-text-field">
                 {/* onChange={handleChange} name="beds"> */}
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -196,6 +261,7 @@ const Search = () => {
             <div>
               <input
                 type="date"
+                className="search-text-field"
                 // value={inputs.availability || ""}
                 onChange={(e) => {
                   setDate(e.target.value);
@@ -210,12 +276,13 @@ const Search = () => {
             </div>
             <div>
               <select
-                multiple={true}
+                multiple={false}
+                className="search-text-field"
                 // value={inputs.specialFeatures || ""}
                 // onChange={handleChange}
                 name="specialFeatures"
               >
-                <option value="dog">Dog</option>
+                <option>Select Below</option>
                 <option value="cat">Cat</option>
                 <option value="hamster">Hamster</option>
               </select>
@@ -226,20 +293,31 @@ const Search = () => {
               <p>Property Type</p>
             </div>
             <div>
-              <input
-                type="textbox"
-                // value={inputs.propertyType || ""}
+              <select
+                multiple={false}
+                className="search-text-field"
+                // value={inputs.specialFeatures || ""}
                 // onChange={handleChange}
                 name="propertyType"
-              ></input>
+              >
+                <option>Select Below</option>
+                <option value="cat">Cat</option>
+                <option value="hamster">Hamster</option>
+              </select>
             </div>
           </div>
           <div className="search-form-submit">
             <div>
-              <p>IMG-left</p>
+              <p></p>
             </div>
             <div>
-              <input type="submit" value="View" onClick={handleSubmit} name="submit"></input>
+              <input
+                className="search-sub-btn"
+                type="submit"
+                value="View"
+                onClick={handleSubmit}
+                name="submit"
+              ></input>
             </div>
           </div>
         </div>
