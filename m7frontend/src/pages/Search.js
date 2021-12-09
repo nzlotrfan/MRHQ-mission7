@@ -1,15 +1,19 @@
 import banner from "../assets/Search/banner.png";
-import { useState } from "react";
+import downarrow from "../assets/Search/downcheveron-btn.png";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Search.css";
+import QuickSortLowHigh from "../functions/QuickSortLowHigh";
+import QuickSortHighLow from "../functions/QuickSortHighLow";
 
 const Search = () => {
   const [suburb, setSuburb] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState();
   const [date, setDate] = useState("");
-
+  const [sortRerender, setSortRerender] = useState("");
+  const [currentSort, setCurrentSort] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchData = {
@@ -19,14 +23,14 @@ const Search = () => {
       date,
     };
     console.log(searchData);
-
     axios
       .get(`http://localhost:5000/search`, { params: searchData })
 
       .then(function (response) {
         if (response.status === 200) {
-          // setInputs({});
-          setResults(response);
+          setResults(response.data);
+          console.log("Received below from backend:");
+          console.log(response.data);
         } else {
           console.log(response);
         }
@@ -35,7 +39,31 @@ const Search = () => {
         console.log(error);
       });
   };
-  console.log(results.data);
+  const handleSort = (e) => {
+    if (results) {
+      setCurrentSort(e.target.name);
+      console.log(e.target.name);
+      if (e.target.name === "Price (low to high)") {
+        const lowHighResults = QuickSortLowHigh(results);
+        setResults(lowHighResults);
+        setSortRerender([...sortRerender, "rerendered"]);
+      } else if (e.target.name === "Price (high to low)") {
+        const highLowResults = QuickSortHighLow(results);
+        setResults(highLowResults);
+        setSortRerender([...sortRerender, "rerendered"]);
+      }
+    } else {
+      alert("Make a search first!");
+    }
+  };
+
+  let current = new Date();
+  current.setDate(current.getDate() - 10);
+  // current.toISOString();
+  const listingDate = new Date("2021-12-05");
+  console.log(listingDate > current ? "NEW!" : "more than 30 days old");
+  console.log(`listingDate: ${listingDate}`);
+  console.log(`current: ${current}`);
   return (
     <div className="search-container">
       <div className="search-banner-container">
@@ -44,20 +72,44 @@ const Search = () => {
       <div className="search-main-container">
         <div className="search-mainleft">
           <div className="search-sortbar">
-            <h2>x Properties</h2>
-            <h3>Sort by: New</h3>
+            <h2>
+              {results ? `${results.length} ` : "x"}
+              {results?.length > 1 ? "Properties" : "Property"}
+            </h2>
+
+            <div className="search-sort-menu-section">
+              <h3>Sort by:</h3>
+              <div className="search-dropdown">
+                <button className="search-dropbtn">
+                  <h3>{currentSort || "Default"}</h3>
+                  <img width="30px" src={downarrow}></img>
+                </button>
+                <div className="search-dropdown-content">
+                  <a onClick={handleSort} name="Price (low to high)">
+                    Price (low to high)
+                  </a>
+                  <a onClick={handleSort} name="Price (high to low)">
+                    Price (high to low)
+                  </a>
+                </div>
+              </div>
+              {/* <div className="search-sort-menu-box">SORTMENU</div> */}
+            </div>
           </div>
-          <div className="search-results">
-            RESULTS
-            {results.data
-              ? results.data.map(function (property, i, arr) {
+          <div className="search-results-container">
+            {results
+              ? results.map(function (property, i, arr) {
                   return (
-                    <div className="search-results-container">
-                      <div className="search-result-pic">
-                        <img width="200px" src={property.image} />
+                    <div key={i} className="search-result-container">
+                      <div className="search-result-pic-wrapper">
+                        <img className="search-result-pic" width="100%" src={property.image} />
+                        <div className="search-result-pic-ribbon-wrapper">
+                          <div className="search-result-pic-ribbon">New</div>
+                        </div>
                       </div>
                       <div className="search-result-info">
-                        {property.addressStreet}, Date: {property.dateAvailable}
+                        {property.addressStreet}, Date: {property.dateAvailable.slice(0, 10)}, $
+                        {property.price}
                       </div>
                     </div>
                   );
@@ -152,7 +204,7 @@ const Search = () => {
             </div>
             <div>
               <select
-                multiple="true"
+                multiple={true}
                 // value={inputs.specialFeatures || ""}
                 // onChange={handleChange}
                 name="specialFeatures"
