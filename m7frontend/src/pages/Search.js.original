@@ -10,7 +10,7 @@ import QuickSortLowHigh from "../functions/QuickSortLowHigh";
 import QuickSortHighLow from "../functions/QuickSortHighLow";
 
 const Search = () => {
-  const [suburb, setSuburb] = useState([]);
+  const [suburb, setSuburb] = useState("");
   const [priceFrom, setPriceFrom] = useState(0);
   const [priceTo, setPriceTo] = useState(2000);
   const [leaseType, setLeaseType] = useState("rent");
@@ -19,18 +19,15 @@ const Search = () => {
   const [sortRerender, setSortRerender] = useState("");
   const [currentSort, setCurrentSort] = useState("");
 
-  const handleSelectSuburb = (e) => {
-    const selectedSuburbs = [];
-    const selectionArray = {
-      selectedSuburbs: Array.from(e.target.selectedOptions, (item) => item.value),
-    };
-
-    selectionArray.selectedSuburbs.forEach(function (selectedSuburb) {
-      const selectedSuburbAsObject = { addressSuburb: selectedSuburb };
-      selectedSuburbs.push(selectedSuburbAsObject);
-    });
-    setSuburb(selectedSuburbs);
-  };
+  // const handleSuburb = (e) => {
+  // try adding into the select element:setSuburb({ addressSuburb: e.target.value });
+  //   const newArr = {
+  //     addressSuburb: Array.from(e.target.selectedOptions, (item) => item.value),
+  //   };
+  //   const newNewArr = Object.values(newArr);
+  //   // TRYING TO ACHIEVE:
+  //   // [{ addressSuburb: "Mount Roskill" }, { addressSuburb: "Mount Eden" }],
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,9 +59,10 @@ const Search = () => {
   const handleSort = (e) => {
     if (results) {
       setCurrentSort(e.target.name);
-      console.log(`Sorted result by: ${e.target.name}`);
+      console.log(e.target.name);
       if (e.target.name === "Price (low to high)") {
         const lowHighResults = QuickSortLowHigh(results);
+
         setResults(lowHighResults);
         setSortRerender([...sortRerender, "rerendered"]);
       } else if (e.target.name === "Price (high to low)") {
@@ -153,7 +151,7 @@ const Search = () => {
                             <img className="icons" src={availability} height="25px"></img>
                             <p className="icons">Availability</p>
                             <p className="icons datecolour">
-                              {property.dateAvailable >= todaysDate
+                              {property.dateAvailable <= todaysDate
                                 ? new Date(property.dateAvailable)
                                     .toString()
                                     .slice(4, 10)
@@ -179,49 +177,35 @@ const Search = () => {
 
           <div className="search-form-row">
             <div className="search-title-section">
-              <label>
-                <input
-                  type="radio"
-                  onChange={() => {
-                    setLeaseType("rent");
-                  }}
-                  defaultChecked="true"
-                  value="rent"
-                  name="leaseType"
-                ></input>
-                <h2>Rent</h2>
-              </label>
+              <input
+                type="radio"
+                onChange={() => {
+                  setLeaseType("rent");
+                }}
+                defaultChecked="true"
+                value="rent"
+                name="leaseType"
+              ></input>
+              <h2>Rent</h2>
             </div>
             <div className="search-title-section">
-              <label>
-                <input
-                  type="radio"
-                  onChange={() => {
-                    setLeaseType("short");
-                  }}
-                  value="short"
-                  name="leaseType"
-                ></input>
-                <h2>Short Let</h2>
-              </label>
+              <input
+                type="radio"
+                onChange={() => {
+                  setLeaseType("short");
+                }}
+                value="short"
+                name="leaseType"
+              ></input>
+              <h2>Short Let</h2>
             </div>
           </div>
           <div className="search-form-row">
-            {/* SUBURB STARTS HERE ----------------- */}
             <div>
               <p>Suburb</p>
             </div>
             <div>
-              <select
-                onChange={(e) => handleSelectSuburb(e)}
-                className="search-text-field"
-                multiple={true}
-              >
-                <option value="Mount Roskill">Mount Roskill</option>
-                <option value="Mount Eden">Mount Eden</option>
-                <option value="Northcote">Northcote</option>
-              </select>
-              {/* <input
+              <input
                 type="textbox"
                 className="search-text-field"
                 value={suburb}
@@ -229,7 +213,7 @@ const Search = () => {
                   setSuburb(e.target.value);
                 }}
                 name="suburb"
-              ></input> */}
+              ></input>
             </div>
           </div>
           <div className="search-form-row">

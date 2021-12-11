@@ -264,3 +264,60 @@
 .datecolour {
   color: #c01f3f;
 }
+
+/* input[type="radio"]:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid white;
+}
+
+input[type="radio"]:checked:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #c01f3f;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid white;
+} */
+
+label > input[type="radio"] {
+  display: none;
+}
+
+label > input[type="radio"] + *::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: gray;
+}
+
+label > input[type="radio"]:checked + *::before {
+  background: radial-gradient(#c01f3f 0%, #c01f3f 40%, transparent 50%, transparent);
+  border-color: #c01f3f;
+}
+label > input[type="radio"]:checked + * {
+  color: #c01f3f;
+}
+
+label > h2 {
+  color: black !important ;
+}

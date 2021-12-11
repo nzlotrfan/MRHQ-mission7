@@ -16,6 +16,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
+  // Connect to DB and run query
+  connectDb(req.query).catch(console.error);
   async function connectDb(searchData) {
     // Connection details
     const uri = process.env.DB_KEY;
@@ -24,9 +26,9 @@ app.get("/search", (req, res) => {
     try {
       await client.connect();
       console.log("Database connection was successful!");
-      // Run below query
+      console.log("Search parameters received from the frontend:");
       console.log(searchData);
-      await findListingsWithAddressAndMinPrices(client, searchData);
+      await searchListingDatabase(client, searchData); // Query to run
     } catch (err) {
       console.log(err);
     } finally {
@@ -35,31 +37,27 @@ app.get("/search", (req, res) => {
   }
 
   // Actual query
-  async function findListingsWithAddressAndMinPrices(
+  async function searchListingDatabase(
     client,
     { suburb, priceFrom, priceTo, date, leaseType } = {}
   ) {
-    // console.log(`here: ${priceFrom}`);
     const cursor = client
       .db("reubens-first-db")
       .collection("mission7")
       .find({
-        // $or: [{ addressSuburb: "Mount Roskill" }, { addressSuburb: "Mount Eden" }], // This works, but need to figure how to get frontend to send it
-        addressSuburb: suburb,
+        $or: suburb.map(JSON.parse),
+        // $or: [{ addressSuburb: "Mount Roskill" }, { addressSuburb: "Mount Eden" }] // This is what the above looks like
         price: { $gte: Number(priceFrom), $lte: Number(priceTo) },
         dateAvailable: { $gte: new Date(date) },
         leaseType: leaseType,
       });
 
     const results = await cursor.toArray();
-    console.log(results);
     res.status(200).send(results);
     results.forEach(function (property, i, arr) {
       console.log(`The query worked! It pulled out: ${property.addressStreet}`);
     });
   }
-  // Connect to DB and run query
-  connectDb(req.query).catch(console.error);
 });
 
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
