@@ -226,7 +226,7 @@ const Search = () => {
           <div className="search-form-row">
             {/* SUBURB STARTS HERE ----------------- */}
             <div>
-              <p>Suburb</p>
+              <p>Suburbyo</p>
             </div>
             <div>
               <select
