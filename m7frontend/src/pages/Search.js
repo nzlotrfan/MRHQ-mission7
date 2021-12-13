@@ -8,6 +8,14 @@ import axios from "axios";
 import "./Search.css";
 import QuickSortLowHigh from "../functions/QuickSortLowHigh";
 import QuickSortHighLow from "../functions/QuickSortHighLow";
+import Checkbox from "@mui/material/Checkbox";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const Search = () => {
   const [suburb, setSuburb] = useState([]);
@@ -18,7 +26,9 @@ const Search = () => {
   const [date, setDate] = useState("");
   const [sortRerender, setSortRerender] = useState("");
   const [currentSort, setCurrentSort] = useState("");
+  const [test, setTest] = useState();
 
+  console.log(test);
   const handleSelectSuburb = (e) => {
     const selectedSuburbs = [];
     const selectionArray = {
@@ -82,6 +92,13 @@ const Search = () => {
   let todaysDate = oneMonthAgoDate.toISOString();
   oneMonthAgoDate.setDate(oneMonthAgoDate.getDate() - 30);
   oneMonthAgoDate = new Date(oneMonthAgoDate).toISOString();
+
+  const top100Films = [
+    { addressSuburb: "Mount Roskill" },
+    { addressSuburb: "Mount Eden" },
+    { addressSuburb: "Eden Terrace" },
+    { addressSuburb: "Northcote" },
+  ];
 
   return (
     <div className="search-container">
@@ -221,6 +238,41 @@ const Search = () => {
                 <option value="Mount Eden">Mount Eden</option>
                 <option value="Northcote">Northcote</option>
               </select>
+              {/* size={"small"}
+                onChange={(e, value) => {
+                  setTest(value);
+                }}
+                isOptionEqualToValue={(option, value) => option.title === value.title} */}
+              <Autocomplete
+                multiple
+                size={"small"}
+                onChange={(e, value) => {
+                  setSuburb(value);
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  option.addressSuburb === value.addressSuburb
+                }
+                id="checkboxes-tags-demo"
+                options={top100Films}
+                disableCloseOnSelect
+                getOptionLabel={(option) => option.addressSuburb}
+                renderOption={(props, option, { selected }) => (
+                  <li {...props}>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.addressSuburb}
+                  </li>
+                )}
+                style={{ width: 200 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Checkboxes" placeholder="Favorites" />
+                )}
+              />
+
               {/* <input
                 type="textbox"
                 className="search-text-field"

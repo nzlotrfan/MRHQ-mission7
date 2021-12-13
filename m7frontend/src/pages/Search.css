@@ -193,12 +193,12 @@
 }
 
 .search-price-field {
-  width: 75px;
+  width: 100px;
   border: solid 2px #fff;
 }
 
 .search-text-field {
-  width: 150px;
+  width: 200px;
   border: solid 2px #fff;
 }
 
@@ -321,3 +321,8 @@ label > input[type="radio"]:checked + * {
 label > h2 {
   color: black !important ;
 }
+
+/* .selectSearch {
+  width: 150px;
+  border: solid 2px blue;
+} */
