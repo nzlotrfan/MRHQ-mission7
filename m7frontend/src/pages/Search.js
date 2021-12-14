@@ -242,7 +242,7 @@ const Search = () => {
                 onChange={(e, value) => {
                   setTest(value);
                 }}
-                isOptionEqualToValue={(option, value) => option.title === value.title} */}
+                isOptionEqualToValue={(option, value) => option.title === value.title}  */}
               <Autocomplete
                 multiple
                 size={"small"}
