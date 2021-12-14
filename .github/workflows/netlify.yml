@@ -25,12 +25,3 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 1
-
-  webhookit:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Webhook POST Action
-        uses: muinmomin/webhook-action@v1.0.0
-        with:
-          url: ${{ secrets.WEBHOOK_URL }}
