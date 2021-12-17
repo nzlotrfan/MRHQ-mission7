@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-defaults:
-  run:
-    working-directory: ./m7backend
-
 jobs:
   build:
     runs-on: ubuntu-latest
