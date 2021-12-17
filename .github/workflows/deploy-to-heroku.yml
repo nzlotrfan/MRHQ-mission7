@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: m7backend
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,11 +27,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-        working-directory: m7backend
       - run: npm run build --if-present
-        working-directory: m7backend
       - run: npm test
-        working-directory: m7backend
 
   deploy:
     needs: build
