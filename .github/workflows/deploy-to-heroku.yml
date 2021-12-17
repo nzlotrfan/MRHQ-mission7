@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: m7backend
+    working-directory: ./m7backend
 
 jobs:
   build:
