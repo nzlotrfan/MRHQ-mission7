@@ -60,7 +60,7 @@ app.get("/search", (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Listening I think on http://localhost:${PORT}`));
 
 //   // THIS QUERY FINDS ONE RESULT ONLY
 //   async function findOneListing(client, suburbName) {

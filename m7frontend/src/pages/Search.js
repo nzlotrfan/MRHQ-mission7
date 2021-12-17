@@ -53,7 +53,7 @@ const Search = () => {
     };
     console.log(searchData);
     axios
-      .get(`http://localhost:5000/search`, { params: searchData })
+      .get(`https://reubentestbackend.herokuapp.com/search`, { params: searchData })
 
       .then(function (response) {
         if (response.status === 200) {
