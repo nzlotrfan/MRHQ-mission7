@@ -20,16 +20,21 @@ const Home = () => {
             <h2>We care about your living quality</h2>
             <h2>Let us settle you down</h2>
           </div>
-          <div className="home-banner-rows-container">
+          {/* <div className="home-banner-rows-container">
             <div className="home-banner-rows">
-              <p>Rent</p>
-              <p>Short Let</p>
+              <div>
+                <p>Rent</p>
+                <p>Short Let</p>
+              </div>
             </div>
+
             <div className="home-banner-rows">
-              <p>Paying online</p>
-              <p>Watch list</p>
+              <div>
+                <p>Paying online</p>
+                <p>Watch list</p>
+              </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="home-awards-container">
@@ -47,8 +52,9 @@ const Home = () => {
             <div className="home-divider"></div>
           </div>
           <p>
-            With over 25 plus years of experience, we focus on reducing residential, commercial and
-            body corporate property management risks.
+            With over 25 plus years of experience, we focus on reducing
+            residential, commercial and body corporate property management
+            risks.
             <br />
             <br />
             We aim to be genuinely useful to both our landlords and our tenants.
@@ -65,9 +71,10 @@ const Home = () => {
           <h1>What our clients say</h1>
           <div>
             <p className="home-testimonials-text home-quote1">
-              “Auckland Property Management are professional and committed to providing excellent
-              service. Any query or problem is dealt with efficiently and courteously. I have been
-              with Auckland Property Management since 2009 and would not think of changing.”
+              “Auckland Property Management are professional and committed to
+              providing excellent service. Any query or problem is dealt with
+              efficiently and courteously. I have been with Auckland Property
+              Management since 2009 and would not think of changing.”
             </p>
             <p className="home-testimonials-author">John &amp; Muriel Ingram</p>
           </div>

@@ -32,7 +32,10 @@ const Search = () => {
   const handleSelectSuburb = (e) => {
     const selectedSuburbs = [];
     const selectionArray = {
-      selectedSuburbs: Array.from(e.target.selectedOptions, (item) => item.value),
+      selectedSuburbs: Array.from(
+        e.target.selectedOptions,
+        (item) => item.value
+      ),
     };
 
     selectionArray.selectedSuburbs.forEach(function (selectedSuburb) {
@@ -53,7 +56,9 @@ const Search = () => {
     };
     console.log(searchData);
     axios
-      .get(`https://reubentestbackend.herokuapp.com/search`, { params: searchData })
+      .get(`https://reubentestbackend.herokuapp.com/search`, {
+        params: searchData,
+      })
 
       .then(function (response) {
         if (response.status === 200) {
@@ -137,7 +142,11 @@ const Search = () => {
                   return (
                     <div key={i} className="search-result-container">
                       <div className="search-result-pic-wrapper">
-                        <img className="search-result-pic" width="100%" src={property.image} />
+                        <img
+                          className="search-result-pic"
+                          width="100%"
+                          src={property.image}
+                        />
                         <div
                           className={
                             property.dateListed < oneMonthAgoDate
@@ -157,17 +166,29 @@ const Search = () => {
                         </p>
                         <div className="search-refinements-container">
                           <div className="search-bedrooms">
-                            <img className="icons" src={beds} height="25px"></img>
+                            <img
+                              className="icons"
+                              src={beds}
+                              height="25px"
+                            ></img>
                             <p className="icons">Bedrooms</p>
                             <p className="icons">{property.bedrooms}</p>
                           </div>
                           <div className="search-bathrooms">
-                            <img className="icons" src={bathrooms} height="25px"></img>
+                            <img
+                              className="icons"
+                              src={bathrooms}
+                              height="25px"
+                            ></img>
                             <p className="icons">Bathrooms</p>
                             <p className="icons">{property.bathrooms}</p>
                           </div>
                           <div className="search-availability">
-                            <img className="icons" src={availability} height="25px"></img>
+                            <img
+                              className="icons"
+                              src={availability}
+                              height="25px"
+                            ></img>
                             <p className="icons">Availability</p>
                             <p className="icons datecolour">
                               {property.dateAvailable >= todaysDate
@@ -180,7 +201,9 @@ const Search = () => {
                                 : "Now"}
                             </p>
                           </div>
-                          <div className="search-price">${property.price} per week</div>
+                          <div className="search-price">
+                            ${property.price} per week
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -226,10 +249,10 @@ const Search = () => {
           <div className="search-form-row">
             {/* SUBURB STARTS HERE ----------------- */}
             <div>
-              <p>Suburbyoe</p>
+              <p>Suburb</p>
             </div>
             <div>
-              <select
+              {/* <select
                 onChange={(e) => handleSelectSuburb(e)}
                 className="search-text-field"
                 multiple={true}
@@ -237,7 +260,7 @@ const Search = () => {
                 <option value="Mount Roskill">Mount Roskill</option>
                 <option value="Mount Eden">Mount Eden</option>
                 <option value="Northcote">Northcote</option>
-              </select>
+              </select> */}
               {/* size={"small"}
                 onChange={(e, value) => {
                   setTest(value);
@@ -269,7 +292,11 @@ const Search = () => {
                 )}
                 style={{ width: 200 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Checkboxes" placeholder="Favorites" />
+                  <TextField
+                    {...params}
+                    label="Select suburb"
+                    placeholder="Favorites"
+                  />
                 )}
               />
 
